@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, Iterator, List, Optional, Union
+import uuid
 
 import ray
 from .ref_bundle import RefBundle
@@ -203,9 +204,17 @@ class PhysicalOperator(Operator):
         # Set via `PhysicalOperator.set_logical_operators()`.
         self._logical_operators: List[LogicalOperator] = []
         self._data_context = data_context
+        self._id = str(uuid.uuid4())
 
     def __reduce__(self):
         raise ValueError("Operator is not serializable.")
+
+    @property
+    def id(self) -> str:
+        """
+        Return a unique identifier for this operator.
+        """
+        return self._id
 
     @property
     def data_context(self) -> DataContext:

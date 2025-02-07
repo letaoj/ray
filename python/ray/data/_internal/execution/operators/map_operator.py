@@ -66,6 +66,8 @@ class MapOperator(OneToOneOperator, ABC):
     and actor compute strategies.
     """
 
+    _OPERATOR_ID_LABEL_KEY = "__data_operator_id"
+
     def __init__(
         self,
         map_transformer: MapTransformer,
